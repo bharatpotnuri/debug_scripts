@@ -48,20 +48,21 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 	
 	case $index in
 		0)
+			echo "SWSQE $line_addr" >> /tmp/sw_cq_dis.txt
 			echo "WR ID: `echo $line | awk '{$1=""; print $0}'`" >> /tmp/sw_sq_dis.txt
 			;;
 		1)
 			echo "CQE" >> /tmp/sw_sq_dis.txt
-			echo $line | awk '{$1=""; print $0}' >> /tmp/sw_sq_dis.txt
+			echo $line | awk '{print $0}' >> /tmp/sw_sq_dis.txt
 			;;
 		2)
-			echo $line | awk '{$1=""; print $0}' >> /tmp/sw_sq_dis.txt
+			echo $line | awk '{print $0}' >> /tmp/sw_sq_dis.txt
 			;;
 		3)
-			echo $line | awk '{$1=""; print $0}' >> /tmp/sw_sq_dis.txt
+			echo $line | awk '{print $0}' >> /tmp/sw_sq_dis.txt
 			;;
 		4)
-			echo $line | awk '{$1=""; print $0}' >> /tmp/sw_sq_dis.txt
+			echo $line | awk '{print $0}' >> /tmp/sw_sq_dis.txt
 			;;
 		5)
 			echo "Read len: `echo $line | awk '{print ($2,$3,$4,$5)}'`" >> /tmp/sw_sq_dis.txt
