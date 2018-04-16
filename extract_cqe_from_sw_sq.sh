@@ -20,8 +20,7 @@ read -r line < $filename
 base_addr=`echo $line | awk '{print $1}'`
 base_addr=${base_addr::-1}
 man_addr=$base_addr
-
-printf "0x%x  0x%x\n" $man_addr $base_addr
+#printf "0x%x  0x%x\n" $man_addr $base_addr
 
 #echo -e "-------------------------------------------------------------------------------------------------" >> /tmp/cqe_from_sw_sq.txt
 #echo "Note: Struct members are in Little Endian, So while reading " >> /tmp/cqe_from_sw_sq.txt
@@ -54,19 +53,19 @@ while IFS='' read -r line || [[ -n "$line" ]]; do
 			man_addr=$(($man_addr + 0)) #some crazy hack
 			;;
 		1)
-			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
+			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x:", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
 			man_addr=$(($man_addr + 8))
 			;;
 		2)
-			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
+			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x:", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
 			man_addr=$(($man_addr + 8))
 			;;
 		3)
-			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
+			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x:", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
 			man_addr=$(($man_addr + 8))
 			;;
 		4)
-			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
+			echo $line | awk -v pat="$man_addr" '{$1=sprintf("0x%x:", pat); print $0}' >> /tmp/cqe_from_sw_sq.txt
 			man_addr=$(($man_addr + 8))
 			;;
 		5)
