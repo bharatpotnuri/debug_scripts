@@ -4,11 +4,15 @@
 ## This is a simple program to print out the SW SQ entries by 
 ## dissecting the fields. SW SQ should be dumped in Hex format 
 ## Ex: crash: x/<size of whole queue in bytes>xb 0x<start address> 
+##
+## Note: this script manipulates the addresses of CQEs to make the extracted
+##       CQEs to be compatible with analysing the CQEs using 'analyse_cq.sh' script.
 #
 
 if [[ $# != 1 ]]; then
   echo "Usage: #extract_cqe_from_sw_sq.sh <sw SQ dumped in hex, 8 bytes per line>"
 	echo "Ex dump: 0xffff880820fc0058:	0x30	0xc8	0x4a	0x2c	0x08	0x88	0xff	0xff"
+	echo "Output is dumped to '/tmp/cqe_from_sw_sq.txt'"
   exit
 fi
 
@@ -22,21 +26,6 @@ base_addr=${base_addr::-1}
 man_addr=$base_addr
 #printf "0x%x  0x%x\n" $man_addr $base_addr
 
-#echo -e "-------------------------------------------------------------------------------------------------" >> /tmp/cqe_from_sw_sq.txt
-#echo "Note: Struct members are in Little Endian, So while reading " >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\tmultibyte data, read it from right to left" >> /tmp/cqe_from_sw_sq.txt
-#echo "Example:" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t A multi byte data 0x01234567 is stored at address 0x100 as" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t Little Endian:" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t \t 0x100 0x101 0x102 0x103" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t \t  0x67  0x45  0x23  0x01" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t Big Endian:" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t \t 0x100 0x101 0x102 0x103" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t \t  0x01  0x23  0x45  0x67" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t ToDo : Print them in reverse so that the above need not be done" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "\t ToDo : Add parsing logic, say opcode, cqe processing etc" >> /tmp/cqe_from_sw_sq.txt
-#echo -e "-------------------------------------------------------------------------------------------------" >> /tmp/cqe_from_sw_sq.txt
-#echo -e ""  >> /tmp/cqe_from_sw_sq.txt
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
 #read -r line < $filename

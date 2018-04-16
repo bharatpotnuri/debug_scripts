@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #
-## This is a simple program to print out the SW SQ entries by 
+## This is a simple script to print out the SW SQ entries by 
 ## dissecting the fields. SW SQ should be dumped in Hex format 
 ## Ex: crash: x/<size of whole queue in bytes>xb 0x<start address> 
 #
@@ -9,6 +9,7 @@
 if [[ $# != 1 ]]; then
   echo "Usage: #analyse_sw_sq.sh <sw SQ dumped in hex, 8 bytes per line>"
 	echo "Ex dump: 0xffff880820fc0058:	0x30	0xc8	0x4a	0x2c	0x08	0x88	0xff	0xff"
+	echo "Output is dumped to '/tmp/sw_sq_dis.txt'"
   exit
 fi
 
@@ -31,6 +32,7 @@ echo -e "\t \t  0x67  0x45  0x23  0x01" >> /tmp/sw_sq_dis.txt
 echo -e "\t Big Endian:" >> /tmp/sw_sq_dis.txt
 echo -e "\t \t 0x100 0x101 0x102 0x103" >> /tmp/sw_sq_dis.txt
 echo -e "\t \t  0x01  0x23  0x45  0x67" >> /tmp/sw_sq_dis.txt
+echo -e ""  >> /tmp/sw_cq_dis.txt
 echo -e "\t ToDo : Print them in reverse so that the above need not be done" >> /tmp/sw_sq_dis.txt
 echo -e "\t ToDo : Add parsing logic, say opcode, cqe processing etc" >> /tmp/sw_sq_dis.txt
 echo -e "-------------------------------------------------------------------------------------------------" >> /tmp/sw_sq_dis.txt
